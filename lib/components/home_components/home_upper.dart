@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeUpper extends StatefulWidget {
+  const HomeUpper({this.toggle});
+  final ToggleCallback toggle;
   @override
   _HomeUpperState createState() => _HomeUpperState();
 }
@@ -25,11 +27,14 @@ class _HomeUpperState extends State<HomeUpper> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Image.asset(
-                  'assets/icons/align-left.png',
-                  color: Colors.white,
-                  height: 30,
-                  width: 30,
+                GestureDetector(
+                  onTap: widget.toggle,
+                  child: Image.asset(
+                    'assets/icons/align-left.png',
+                    color: Colors.white,
+                    height: 30,
+                    width: 30,
+                  ),
                 ),
                 Icon(
                   Icons.add_a_photo,
@@ -63,3 +68,5 @@ class _HomeUpperState extends State<HomeUpper> {
     );
   }
 }
+
+typedef ToggleCallback = void Function();
