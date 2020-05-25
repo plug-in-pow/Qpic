@@ -21,11 +21,19 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return MaterialApp(
-      theme: ThemeData(fontFamily: 'Bree Serif'),
-      title: 'Ai App',
-      home: SplashState(),
-      debugShowCheckedModeBanner: false,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+      child: MaterialApp(
+        theme: ThemeData(fontFamily: 'Bree Serif'),
+        title: 'Ai App',
+        home: SplashState(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
