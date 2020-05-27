@@ -23,14 +23,14 @@ class MyApp extends StatelessWidget {
     ]);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+        statusBarColor: Colors.white,
         systemNavigationBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: MaterialApp(
         theme: ThemeData(fontFamily: 'Bree Serif'),
-        title: 'Ai App',
+        title: 'Foto',
         home: SplashState(),
         debugShowCheckedModeBanner: false,
       ),

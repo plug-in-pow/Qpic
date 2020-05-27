@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_ai_captioner/components/home_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:smart_ai_captioner/components/search_page.dart';
+import 'package:smart_ai_captioner/components/setting_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,15 +14,8 @@ class _HomeState extends State<Home> {
 
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    Text(
-      'Index 1: Likes',
-    ),
-    Text(
-      'Index 2: Search',
-    ),
-    Text(
-      'Index 3: Profile',
-    ),
+    SearchPage(),
+    SettingPage(),
   ];
 
   @override
@@ -39,6 +34,7 @@ class _HomeState extends State<Home> {
             child: GNav(
                 gap: 8,
                 activeColor: Colors.indigo,
+                color: Colors.grey[600],
                 iconSize: 24,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 duration: Duration(milliseconds: 800),
@@ -51,16 +47,12 @@ class _HomeState extends State<Home> {
                     text: 'Home',
                   ),
                   GButton(
-                    icon: Icons.favorite,
-                    text: 'Likes',
-                  ),
-                  GButton(
                     icon: Icons.search,
                     text: 'Search',
                   ),
                   GButton(
-                    icon: Icons.people,
-                    text: 'Profile',
+                    icon: Icons.settings,
+                    text: 'Setting',
                   ),
                 ],
                 selectedIndex: _selectedIndex,
