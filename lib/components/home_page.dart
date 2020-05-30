@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smart_ai_captioner/data/tab_data.dart';
 
+// Screens
+import 'package:smart_ai_captioner/components/ai_caption/ai_caption_s1.dart';
+import 'package:smart_ai_captioner/components/photo_filter/photo_filter_s1.dart';
+import 'package:smart_ai_captioner/components/photo_fusion/photo_fusion_s1.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -28,12 +33,14 @@ class _HomePageState extends State<HomePage> {
     return 'Evening';
   }
 
+  List<Widget> screens = [AiCaptionS1(), PhotoFilterS1(), PhotoFusionS1()];
+
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
         SizedBox(
-          height: 60,
+          height: 40,
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -50,12 +57,12 @@ class _HomePageState extends State<HomePage> {
         ),
         ...tabs
             .map((tab) => ListOfTabs(
-                  iconPath: tab.getIconPath(),
-                  title: tab.getTitle(),
-                  descr: tab.getDescr(),
-                  color: tab.getColor(),
-                  textColor: tab.getTextColor(),
-                ))
+                iconPath: tab.getIconPath(),
+                title: tab.getTitle(),
+                descr: tab.getDescr(),
+                color: tab.getColor(),
+                textColor: tab.getTextColor(),
+                screen: tab.getScreen()))
             .toList(),
       ],
     );
@@ -65,8 +72,14 @@ class _HomePageState extends State<HomePage> {
 class ListOfTabs extends StatelessWidget {
   final String iconPath, title, descr;
   final Color color, textColor;
+  final Widget screen;
   ListOfTabs(
-      {this.iconPath, this.title, this.descr, this.color, this.textColor});
+      {this.iconPath,
+      this.title,
+      this.descr,
+      this.color,
+      this.textColor,
+      this.screen});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +122,12 @@ class ListOfTabs extends StatelessWidget {
               icon: Icon(Icons.arrow_forward_ios),
               color: textColor,
               splashColor: Colors.grey,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => screen),
+                );
+              },
             ),
             SizedBox(
               height: 20,

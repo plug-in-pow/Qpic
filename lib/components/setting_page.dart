@@ -8,8 +8,40 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("hello"),
+    return ListView(
+      children: <Widget>[
+        SizedBox(
+          height: 40,
+        ),
+        Text(
+          "Setting's",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 40),
+        ),
+        SizedBox(
+          height: 40,
+        ),
+        Divider(
+          color: Colors.black,
+          indent: 20.0,
+          endIndent: 20.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            Text(
+              "Theme",
+              style: TextStyle(fontSize: 20),
+            ),
+            Icon(Icons.line_weight)
+          ],
+        ),
+        Divider(
+          color: Colors.black,
+          indent: 20.0,
+          endIndent: 20.0,
+        )
+      ],
     );
   }
 }
