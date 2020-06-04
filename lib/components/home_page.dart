@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_ai_captioner/data/image_data.dart';
 import 'package:smart_ai_captioner/data/tab_data.dart';
 
-// Screens
+// <- Screens ->
 import 'package:smart_ai_captioner/components/ai_caption/ai_caption_s1.dart';
 import 'package:smart_ai_captioner/components/photo_filter/photo_filter_s1.dart';
 import 'package:smart_ai_captioner/components/photo_fusion/photo_fusion_s1.dart';
+// <- Screens ->
 
 class HomePage extends StatefulWidget {
   @override
@@ -33,7 +36,11 @@ class _HomePageState extends State<HomePage> {
     return 'Evening';
   }
 
-  List<Widget> screens = [AiCaptionS1(), PhotoFilterS1(), PhotoFusionS1()];
+  List<Widget> screens = [
+    AiCaptionS1(),
+    PhotoFilterS1(),
+    PhotoFusionS1(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +132,10 @@ class ListOfTabs extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => screen),
+                  MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider(
+                          create: (BuildContext context) => ImageData(),
+                          child: screen)),
                 );
               },
             ),
