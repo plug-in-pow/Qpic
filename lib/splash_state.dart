@@ -34,13 +34,13 @@ class _SplashStateState extends State<SplashState> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: new Center(
-        child: Row(
-          children: <Widget>[
-            new Text('Foto App'),
-            new Text('Loading...'),
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new Text('Foto App'),
+          new Text('Loading...'),
+        ],
       ),
     );
   }

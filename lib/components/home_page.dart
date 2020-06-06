@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_ai_captioner/data/image_data.dart';
+import 'package:smart_ai_captioner/provider/filter_provider.dart';
 import 'package:smart_ai_captioner/data/tab_data.dart';
 
 // <- Screens ->

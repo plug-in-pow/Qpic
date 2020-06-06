@@ -1,10 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:photofilters/filters/preset_filters.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart' as Path;
-import 'package:image/image.dart' as imageLib;
-import 'package:smart_ai_captioner/data/image_data.dart';
+import 'package:smart_ai_captioner/provider/filter_provider.dart';
 
 enum Source { camera, gallery }
 
@@ -14,10 +13,6 @@ class FilterBody extends StatefulWidget {
 }
 
 class _FilterBodyState extends State<FilterBody> {
-  var imageData;
-
-  String fileName;
-
   final picker = ImagePicker();
 
   Future<void> _openDialogBox() async {
@@ -67,22 +62,44 @@ class _FilterBodyState extends State<FilterBody> {
     }
   }
 
-  void getImage(ImageSource source) {
-    var data = Provider.of<ImageData>(context, listen: false);
-    picker.getImage(source: source).then((img) async {
-      if (img != null) {
-        fileName = Path.basename(img.path);
-        var image = imageLib.decodeImage(await img.readAsBytes());
-        data.setImage(image);
-        data.setFilter(fileName, presetFiltersList[data.getFilterIndex()]);
-      }
-    }).catchError((err) {
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text("$err"),
-        ),
-      );
-    });
+  void _checkPermission() async {
+    if (await Permission.storage.status.isUndetermined) {
+      Permission.storage.request();
+    }
+
+    if (await Permission.storage.isRestricted) {
+      openAppSettings();
+    }
+
+    if (await Permission.storage.request().isGranted) {
+      return;
+    }
+
+    if (await Permission.storage.isPermanentlyDenied) {
+      openAppSettings();
+    }
+
+    if (await Permission.camera.status.isUndetermined) {
+      Permission.storage.request();
+    }
+
+    if (await Permission.camera.isRestricted) {
+      openAppSettings();
+    }
+
+    if (await Permission.camera.request().isGranted) {
+      return;
+    }
+
+    if (await Permission.camera.isPermanentlyDenied) {
+      openAppSettings();
+    }
+  }
+
+  Future getImage(ImageSource source) async {
+    var imageData = Provider.of<ImageData>(context, listen: false);
+    final pickedFile = await picker.getImage(source: source);
+    imageData.setImage(File(pickedFile.path));
   }
 
   @override
@@ -99,23 +116,27 @@ class _FilterBodyState extends State<FilterBody> {
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            //borderRadius: BorderRadius.circular(40),
             color: Colors.grey[300],
           ),
-          child: data.getFilterImage().length == 0
-              ? FlatButton.icon(
+          child: data.getImage() != null
+              ? ClipRRect(
+                  //borderRadius: BorderRadius.circular(40),
+                  child: ColorFiltered(
+                    colorFilter: data.getFilterList()[data.getFilterIndex()],
+                    child: Image.file(
+                      data.getImage(),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                )
+              : FlatButton.icon(
                   onPressed: () {
+                    // _checkPermission();
                     _openDialogBox();
                   },
                   icon: Icon(Icons.add_a_photo),
                   label: Text("Add a Photo"),
-                )
-              : ClipRRect(
-                  borderRadius: BorderRadius.circular(40),
-                  child: Image.memory(
-                    data.getFilterImage(),
-                    fit: BoxFit.cover,
-                  ),
                 ),
         );
       },
