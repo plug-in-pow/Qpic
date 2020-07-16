@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_ai_captioner/provider/fusion_provider.dart';
 import 'package:smart_ai_captioner/provider/filter_provider.dart';
 import 'package:smart_ai_captioner/data/tab_data.dart';
-
-// <- Screens ->
-import 'package:smart_ai_captioner/components/ai_caption/ai_caption_s1.dart';
 import 'package:smart_ai_captioner/components/photo_filter/photo_filter_s1.dart';
 import 'package:smart_ai_captioner/components/photo_fusion/photo_fusion_s1.dart';
-// <- Screens ->
 
 class HomePage extends StatefulWidget {
   @override
@@ -36,10 +33,16 @@ class _HomePageState extends State<HomePage> {
     return 'Evening';
   }
 
+  // Filter and Fusion Screens with ChangeNotifier
   List<Widget> screens = [
-    AiCaptionS1(),
-    PhotoFilterS1(),
-    PhotoFusionS1(),
+    ChangeNotifierProvider(
+      create: (BuildContext context) => ImageData(),
+      child: PhotoFilterS1(),
+    ),
+    ChangeNotifierProvider(
+      create: (BuildContext context) => FusionImageData(),
+      child: PhotoFusionS1(),
+    ),
   ];
 
   @override
@@ -49,19 +52,24 @@ class _HomePageState extends State<HomePage> {
         SizedBox(
           height: 40,
         ),
+
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
             "Good " + greetingText,
             style: TextStyle(
               fontSize: 40,
+              fontWeight: FontWeight.w700,
               color: Colors.indigo,
             ),
           ),
         ),
+
         SizedBox(
           height: 10,
         ),
+
+        // Tab creation on HomePage for Filter and Fusion route
         ...tabs
             .map((tab) => ListOfTabs(
                 iconPath: tab.getIconPath(),
@@ -101,48 +109,95 @@ class ListOfTabs extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListTile(
-                trailing: Image.asset(
-                  iconPath,
-                  height: 50,
-                  color: textColor,
-                ),
-                title: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 20, color: textColor),
-                  ),
-                ),
-                subtitle: Text(
-                  descr,
-                  style: TextStyle(color: textColor),
-                ),
-              ),
+            TabIntro(
+              iconPath: iconPath,
+              textColor: textColor,
+              title: title,
+              descr: descr,
             ),
             SizedBox(
               height: 5,
             ),
-            IconButton(
-              icon: Icon(Icons.arrow_forward_ios),
-              color: textColor,
-              splashColor: Colors.grey,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider(
-                          create: (BuildContext context) => ImageData(),
-                          child: screen)),
-                );
-              },
+            TabButton(
+              textColor: textColor,
+              screen: screen,
             ),
             SizedBox(
               height: 20,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class TabButton extends StatelessWidget {
+  const TabButton({
+    Key key,
+    @required this.textColor,
+    @required this.screen,
+  }) : super(key: key);
+
+  final Color textColor;
+  final Widget screen;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_forward_ios),
+      color: textColor,
+      splashColor: Colors.grey,
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
+        );
+      },
+    );
+  }
+}
+
+class TabIntro extends StatelessWidget {
+  const TabIntro({
+    Key key,
+    @required this.iconPath,
+    @required this.textColor,
+    @required this.title,
+    @required this.descr,
+  }) : super(key: key);
+
+  final String iconPath;
+  final Color textColor;
+  final String title;
+  final String descr;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        trailing: Image.asset(
+          iconPath,
+          height: 50,
+          color: textColor,
+        ),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 20,
+              color: textColor,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        subtitle: Text(
+          descr,
+          style: TextStyle(
+            color: textColor,
+          ),
         ),
       ),
     );

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-// Transition Route
 import 'package:smart_ai_captioner/transition/fade_into.dart';
-
-// Screens
 import 'package:smart_ai_captioner/components/home.dart';
 import 'package:smart_ai_captioner/data/data.dart';
 

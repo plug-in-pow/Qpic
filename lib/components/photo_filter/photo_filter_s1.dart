@@ -1,14 +1,15 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:smart_ai_captioner/components/photo_filter/bottom_body.dart';
-import 'package:smart_ai_captioner/components/photo_filter/filter_body.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_ai_captioner/components/photo_filter/preview_screenshot.dart';
+import 'package:smart_ai_captioner/components/permission_handling.dart';
+import 'package:smart_ai_captioner/components/photo_filter/bottom_body.dart';
+import 'package:smart_ai_captioner/components/error_page.dart';
+import 'package:smart_ai_captioner/components/photo_filter/filter_body.dart';
+import 'package:smart_ai_captioner/components/success_screen.dart';
 import 'package:smart_ai_captioner/provider/filter_provider.dart';
+import 'package:smart_ai_captioner/components/photo_filter/Functions/save_image.dart';
 
 class PhotoFilterS1 extends StatefulWidget {
   @override
@@ -33,7 +34,10 @@ class _PhotoFilterS1State extends State<PhotoFilterS1> {
         centerTitle: true,
         title: Text(
           "Filter",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         actions: <Widget>[
           Consumer<ImageData>(
@@ -45,9 +49,24 @@ class _PhotoFilterS1State extends State<PhotoFilterS1> {
                   color: data.getImage() != null ? Colors.blue : null,
                 ),
                 onPressed: data.getImage() != null
-                    ? () {
-                        _checkPermission();
-                        _saveScreen(previewContainer);
+                    ? () async {
+                        var status = await Permission.storage.status;
+                        if (await permissionHandling(
+                            status, Permission.storage)) {
+                          if (await saveScreen(previewContainer, context)) {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => new SuccessScreen(),
+                              ),
+                            );
+                          } else {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => new ErrorScreen(),
+                              ),
+                            );
+                          }
+                        }
                       }
                     : null,
               );
@@ -58,50 +77,5 @@ class _PhotoFilterS1State extends State<PhotoFilterS1> {
       body: RepaintBoundary(key: previewContainer, child: FilterBody()),
       bottomSheet: BottomBody(),
     );
-  }
-
-  void _checkPermission() async {
-    var status = await Permission.storage.status;
-    if (status.isUndetermined) {
-      Permission.storage.request();
-    }
-
-    if (await Permission.storage.isRestricted) {
-      openAppSettings();
-    }
-
-    if (await Permission.storage.request().isGranted) {
-      return;
-    }
-
-    if (await Permission.storage.isPermanentlyDenied) {
-      openAppSettings();
-    }
-  }
-
-  String formattedDate() {
-    String dateTimeString =
-        'FotoApp_' + DateTime.now().toUtc().toIso8601String();
-    return dateTimeString;
-  }
-
-  Future<void> _saveScreen(GlobalKey key) async {
-    try {
-      RenderRepaintBoundary boundary = key.currentContext.findRenderObject();
-      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      var png = byteData.buffer.asUint8List();
-      await Directory('/storage/emulated/0/FotoApp').create(recursive: true);
-      File('/storage/emulated/0/FotoApp/${formattedDate()}.png')
-          .writeAsBytesSync(png.buffer.asInt8List());
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => new PreviewScreenshot(photo: png),
-        ),
-      );
-    } catch (e) {
-      print(e);
-    }
   }
 }

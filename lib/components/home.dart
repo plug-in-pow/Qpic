@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-
-// <- Dependencies ->
 import 'package:google_nav_bar/google_nav_bar.dart';
-// <- Dependencies ->
-
-// <- Screens ->
 import 'package:smart_ai_captioner/components/home_page.dart';
-import 'package:smart_ai_captioner/components/search_page.dart';
+import 'package:smart_ai_captioner/components/caption_home_page.dart';
 import 'package:smart_ai_captioner/components/setting_page.dart';
-// <- Screens ->
 
 class Home extends StatefulWidget {
   @override
@@ -20,9 +14,14 @@ class _HomeState extends State<Home> {
 
   static List<Widget> _widgetOptions = <Widget>[
     HomePage(),
-    SearchPage(),
+    SearchQuotePage(),
     SettingPage(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +43,7 @@ class _HomeState extends State<Home> {
                 iconSize: 24,
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 duration: Duration(milliseconds: 600),
-                textStyle: TextStyle(
-                    fontFamily: 'Roboto', fontWeight: FontWeight.bold),
+                textStyle: TextStyle(fontWeight: FontWeight.bold),
                 tabBackgroundColor: Colors.transparent,
                 tabs: [
                   GButton(
@@ -53,8 +51,8 @@ class _HomeState extends State<Home> {
                     text: 'Home',
                   ),
                   GButton(
-                    icon: Icons.search,
-                    text: 'Search',
+                    icon: Icons.message,
+                    text: 'Quotes',
                   ),
                   GButton(
                     icon: Icons.settings,

@@ -11,6 +11,8 @@ class SplashState extends StatefulWidget {
 }
 
 class _SplashStateState extends State<SplashState> {
+  // This will navigate the user based on
+  // whether the user had seen the first sreen on not.
   Future checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
@@ -38,7 +40,6 @@ class _SplashStateState extends State<SplashState> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          new Text('Foto App'),
           new Text('Loading...'),
         ],
       ),
