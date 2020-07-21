@@ -58,7 +58,10 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/tflite/neural_style_transfer.tflite
+    - assets/tflite/yolov2_tiny.tflite
+    - assets/tflite/yolov2_tiny_labels.txt
+    - assets/tflite/mobilenet_v1_1.0_224.tflite
+    - assets/tflite/mobilenet_v1_1.0_224_labels.txt
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

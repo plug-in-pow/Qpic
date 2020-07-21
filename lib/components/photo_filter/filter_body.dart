@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_ai_captioner/components/photo_filter/Widgets/alert.dart';
+import 'package:smart_ai_captioner/components/common_widgets/alert.dart';
 import 'package:smart_ai_captioner/provider/filter_provider.dart';
 
 class FilterBody extends StatefulWidget {
@@ -38,7 +38,7 @@ class _FilterBodyState extends State<FilterBody> {
                 )
               : FlatButton.icon(
                   onPressed: () {
-                    openDialogBox(context);
+                    openDialogBox(context, data);
                   },
                   icon: Icon(Icons.add_a_photo),
                   label: Text(

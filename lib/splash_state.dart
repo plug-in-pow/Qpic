@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_ai_captioner/transition/fade_into.dart';
-import 'package:smart_ai_captioner/components/intro_screen.dart';
+import 'package:smart_ai_captioner/components/intro_page/intro_screen.dart';
 import 'package:smart_ai_captioner/components/home.dart';
 
 class SplashState extends StatefulWidget {

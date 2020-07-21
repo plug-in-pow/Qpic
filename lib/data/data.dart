@@ -37,8 +37,8 @@ List<SliderModel> getSlides() {
   // 1st slide
   sliderModel.setImageAssetPath('assets/undraw_live_photo_qhmw (1).png');
   sliderModel.setTitle('Upload or Capture Photo');
-  sliderModel.setdescription('Easily upload photos from an Local Storage or' +
-      'Capture a new Image for performing different actions !!');
+  sliderModel.setdescription('Easily upload photos from an Local Storage or ' +
+      'Capture a new image for performing different actions !!');
   slides.add(sliderModel);
 
   // 2st slide
@@ -55,7 +55,7 @@ List<SliderModel> getSlides() {
   sliderModel.setImageAssetPath('assets/undraw_security_o890.png');
   sliderModel.setTitle('Privacy Control');
   sliderModel.setdescription('No need to worry about the privacy as we ' +
-      'are performing the algorithms right into the system' +
+      'are performing the algorithms right into the mobile' +
       ', so no need to upload the data to any server. This also protects' +
       ' the data from the attackers.');
   slides.add(sliderModel);

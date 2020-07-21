@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_ai_captioner/components/photo_filter/photo_filter_s1.dart';
-import 'package:smart_ai_captioner/components/photo_fusion/photo_fusion_s1.dart';
+import 'package:smart_ai_captioner/components/quotes_ai/quotes_ai_s1.dart';
 import 'package:smart_ai_captioner/provider/filter_provider.dart';
-import 'package:smart_ai_captioner/provider/fusion_provider.dart';
+import 'package:smart_ai_captioner/provider/quotes_ai_provider.dart';
 
 class TabModel {
   String iconPath;
@@ -75,15 +75,14 @@ List<TabModel> getTabs() {
 
   tabModel = new TabModel();
   tabModel.setIconPath('assets/icons/disc.png');
-  tabModel.setTitle('Photo Fusion');
-  tabModel.setDescr(
-      'Combine Your image with the available artwork to get the ' +
-          'artistic image out of it. Try it now !!');
+  tabModel.setTitle('Quotes AI');
+  tabModel.setDescr("Don't know how to describe your image ?" +
+      '. Worry not, we are here to help you by suggesting the best captions for you.');
   tabModel.setColor(Color(0xff424A9A));
   tabModel.setTextColor(Colors.white);
   tabModel.setScreen(ChangeNotifierProvider(
-    create: (BuildContext context) => FusionImageData(),
-    child: PhotoFusionS1(),
+    create: (BuildContext context) => QuotesAiImageData(),
+    child: QuotesAiS1(),
   ));
   tabs.add(tabModel);
 

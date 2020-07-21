@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:smart_ai_captioner/components/home_page.dart';
-import 'package:smart_ai_captioner/components/caption_home_page.dart';
-import 'package:smart_ai_captioner/components/setting_page.dart';
+import 'package:smart_ai_captioner/components/home_page/home_page.dart';
+import 'package:smart_ai_captioner/components/caption_search/caption_home_page.dart';
+import 'package:smart_ai_captioner/components/setting_page/setting_page.dart';
 
 class Home extends StatefulWidget {
   @override

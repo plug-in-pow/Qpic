@@ -3,13 +3,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_ai_captioner/components/permission_handling.dart';
-import 'package:smart_ai_captioner/components/photo_filter/bottom_body.dart';
-import 'package:smart_ai_captioner/components/error_page.dart';
+import 'package:smart_ai_captioner/components/common_widgets/permission_handling.dart';
+import 'package:smart_ai_captioner/components/photo_filter/filter_bottom_body.dart';
+import 'package:smart_ai_captioner/components/common_widgets/error_page.dart';
 import 'package:smart_ai_captioner/components/photo_filter/filter_body.dart';
-import 'package:smart_ai_captioner/components/success_screen.dart';
+import 'package:smart_ai_captioner/components/common_widgets/success_screen.dart';
 import 'package:smart_ai_captioner/provider/filter_provider.dart';
-import 'package:smart_ai_captioner/components/photo_filter/Functions/save_image.dart';
+import 'package:smart_ai_captioner/components/common_functions/save_image.dart';
 
 class PhotoFilterS1 extends StatefulWidget {
   @override
@@ -75,7 +75,7 @@ class _PhotoFilterS1State extends State<PhotoFilterS1> {
         ],
       ),
       body: RepaintBoundary(key: previewContainer, child: FilterBody()),
-      bottomSheet: BottomBody(),
+      bottomSheet: FilterBottomBody(),
     );
   }
 }

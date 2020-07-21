@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -12,17 +13,24 @@ class CaptionPage extends StatefulWidget {
 
 class _CaptionPageState extends State<CaptionPage> {
   List data;
-  String message = "";
+  String message = "",
+      url = "https://quotes-api-flutter-app.herokuapp.com/quotes/";
   bool isloading = true;
 
   Future getData() async {
+    for (int i = 0; i < widget.relatedTags.length; i++) {
+      var wordList = widget.relatedTags[i].split(" ");
+      for (int j = 0; j < wordList.length; j++) {
+        url += wordList[j] + ",";
+      }
+    }
+
+    print(url);
+
+    url += "/500";
     try {
-      var response = await http.get(
-          Uri.encodeFull(
-              "https://quotes-api-flutter-app.herokuapp.com/quotes/dkj/500" //+
-              // "${widget.relatedTags[0]},${widget.relatedTags[1]},${widget.relatedTags[2]}/500"
-              ),
-          headers: {"Accept": "application/json"});
+      var response = await http
+          .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
 
       this.setState(() {
         isloading = false;
@@ -125,31 +133,40 @@ class _CaptionPageState extends State<CaptionPage> {
           ? _loader
           : data == null
               ? _messageForError(message)
-              : data.length == 0
-                  ? _messageForNoResult(message)
-                  : new ListView.builder(
-                      itemCount: data == null ? 0 : data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return new Card(
-                          child: Row(
-                            children: <Widget>[
-                              IconButton(
-                                icon: Icon(Icons.content_copy),
-                                onPressed: () {},
-                              ),
-                              Container(
-                                child: Flexible(
-                                  child: new Text(
-                                    data[index]["quote"],
-                                    softWrap: false,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+              : data.length == 0 ? _messageForNoResult(message) : quotesList(),
+    );
+  }
+
+  ListView quotesList() {
+    return new ListView.builder(
+      itemCount: data == null ? 0 : data.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: new ListTile(
+                title: Text("${data[index]["author"]}"),
+                subtitle: Text("${data[index]["quote"]}"),
+                trailing: IconButton(
+                  icon: Icon(Icons.content_copy),
+                  onPressed: () {
+                    Clipboard.setData(new ClipboardData(
+                            text: data[index]["quote"] +
+                                "  ~" +
+                                data[index]["author"]))
+                        .then((value) {
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text("Copied to clipboard")));
+                    });
+                  },
+                ),
+              ),
+            ),
+            Divider()
+          ],
+        );
+      },
     );
   }
 }
