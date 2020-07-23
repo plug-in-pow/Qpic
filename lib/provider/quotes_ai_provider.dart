@@ -3,13 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:tflite/tflite.dart';
 
-const String ssd = "SSD MobileNet";
-const String yolo = "Tiny YOLOv2";
-
-// 0 is the initial stage
-// 1 means model loaded succesfully
-// -1 means model failed to load
-
 class QuotesAiImageData extends ChangeNotifier {
   File _image;
   List<String> _recognition = [];
@@ -57,6 +50,8 @@ class QuotesAiImageData extends ChangeNotifier {
       if (_recognition.length == 0) {
         _recognition.addAll(["world", "happy", "smile", "nature"]);
       }
+
+      _recognition.shuffle();
 
       notifyListeners();
 

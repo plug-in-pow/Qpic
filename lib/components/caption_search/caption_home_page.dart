@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_ai_captioner/components/caption_search/caption_page.dart';
 
 class SearchQuotePage extends StatefulWidget {
@@ -57,7 +58,7 @@ class CardTiles extends StatefulWidget {
 
 class _CardTilesState extends State<CardTiles> {
   Widget quoteCard(tag, relatedTags) {
-    relatedTags.add(tag);
+    relatedTags.insert(0, tag);
     return Container(
       height: 140.0,
       width: MediaQuery.of(context).size.width,
@@ -154,12 +155,20 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        List<String> recentSearch = (prefs.getStringList('recentSearch') ?? []);
+
+        showSearch(
+          context: context,
+          delegate: QuoteSearch(recentSearch: recentSearch),
+        );
+      },
       child: Container(
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.grey[400],
+          color: Colors.grey[200],
         ),
         margin: EdgeInsets.symmetric(horizontal: 20),
         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -174,6 +183,107 @@ class SearchBar extends StatelessWidget {
             Text("Quotes"),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class QuoteSearch extends SearchDelegate<String> {
+  List<String> recentSearch;
+  QuoteSearch({@required this.recentSearch});
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(Icons.clear),
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.arrow_back_ios),
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  void showResults(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var newList = [];
+    if (recentSearch.length <= 4) {
+      newList = recentSearch + [query];
+    } else {
+      newList = recentSearch.sublist(1) + [query];
+    }
+    await prefs.setStringList('recentSearch', newList);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CaptionPage(
+          relatedTags: [query],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return recentSearch.length == 0
+        ? buildNoHistoryContainer()
+        : buildHistoryListView();
+  }
+
+  ListView buildHistoryListView() {
+    return ListView.builder(
+      itemCount: recentSearch.length,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CaptionPage(
+                relatedTags: [query],
+              ),
+            ),
+          ),
+          child: ListTile(
+            leading: Icon(Icons.history),
+            title: Text(recentSearch[index]),
+          ),
+        );
+      },
+    );
+  }
+
+  Container buildNoHistoryContainer() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            Icons.history,
+            color: Colors.grey,
+          ),
+          Center(
+              child: Text(
+            "No Recent Search",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          )),
+        ],
       ),
     );
   }
