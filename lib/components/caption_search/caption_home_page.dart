@@ -250,16 +250,23 @@ class QuoteSearch extends SearchDelegate<String> {
       itemCount: recentSearch.length,
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => CaptionPage(
-                relatedTags: [query],
-              ),
-            ),
-          ),
+          onTap: () {
+            query = recentSearch[index];
+          },
           child: ListTile(
             leading: Icon(Icons.history),
+            trailing: IconButton(
+                icon: Icon(Icons.call_made),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CaptionPage(
+                        relatedTags: [recentSearch[index]],
+                      ),
+                    ),
+                  );
+                }),
             title: Text(recentSearch[index]),
           ),
         );

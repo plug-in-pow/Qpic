@@ -156,8 +156,10 @@ class _CaptionPageState extends State<CaptionPage> {
                                 "  ~" +
                                 data[index]["author"]))
                         .then((value) {
-                      Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text("Copied to clipboard")));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text("Copied to clipboard"),
+                        duration: Duration(seconds: 2),
+                      ));
                     });
                   },
                 ),

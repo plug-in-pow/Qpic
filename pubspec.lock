@@ -83,6 +83,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_markdown:
+    dependency: "direct main"
+    description:
+      name: flutter_markdown
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -156,6 +163,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.16.1"
+  markdown:
+    dependency: transitive
+    description:
+      name: markdown
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.5"
   matcher:
     dependency: transitive
     description:
@@ -177,6 +191,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.4"
+  package_info:
+    dependency: "direct main"
+    description:
+      name: package_info
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.1"
   path:
     dependency: transitive
     description:
@@ -387,4 +408,4 @@ packages:
     version: "3.6.1"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.16.0 <2.0.0"
+  flutter: ">=1.17.0 <2.0.0"

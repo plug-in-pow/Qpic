@@ -38,6 +38,8 @@ dependencies:
   tflite: ^1.0.6
   flappy_search_bar: ^1.7.2
   http: ^0.12.1
+  flutter_markdown: ^0.4.2
+  package_info: ^0.4.1
 
 dev_dependencies:
   flutter_test:
@@ -58,6 +60,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/policy/
     - assets/tflite/yolov2_tiny.tflite
     - assets/tflite/yolov2_tiny_labels.txt
     - assets/tflite/mobilenet_v1_1.0_224.tflite
