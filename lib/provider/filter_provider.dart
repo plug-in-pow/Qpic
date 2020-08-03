@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 class ImageData extends ChangeNotifier {
   File _image;
   List<ColorFilter> _filter = [
+    ColorFilter.mode(Colors.blue[50], BlendMode.softLight),
     ColorFilter.mode(Color(0xffffffe6), BlendMode.softLight),
     ColorFilter.mode(Color(0xffe6f9ff), BlendMode.saturation),
     ColorFilter.matrix(<double>[
@@ -51,7 +52,6 @@ class ImageData extends ChangeNotifier {
       1,
       0,
     ]),
-    ColorFilter.mode(Colors.blue[50], BlendMode.softLight),
     ColorFilter.matrix(<double>[
       -1,
       0,

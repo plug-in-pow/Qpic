@@ -8,7 +8,6 @@ class QuotesAiImageData extends ChangeNotifier {
   List<String> _recognition = [];
 
   setRecognization() async {
-    print("started");
     if (_image == null) return;
     try {
       await Tflite.loadModel(
@@ -36,22 +35,25 @@ class QuotesAiImageData extends ChangeNotifier {
         imageMean: 127.5,
         imageStd: 127.5,
       );
-
       for (int i = 0; i < rec1.length; i++) {
         _recognition.add(rec1[i]["detectedClass"]);
       }
 
       for (int i = 0; i < rec2.length; i++) {
-        _recognition.add(rec2[i]["label"]);
+        if (rec2[i]["confidence"] >= 0.50) {
+          _recognition.add(rec2[i]["label"]);
+        }
       }
 
       _recognition = _recognition.toSet().toList();
 
       if (_recognition.length == 0) {
-        _recognition.addAll(["world", "happy", "smile", "nature"]);
+        _recognition.addAll(["quote", "world"]);
       }
 
       _recognition.shuffle();
+
+      print(_recognition);
 
       notifyListeners();
 

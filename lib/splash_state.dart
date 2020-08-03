@@ -40,7 +40,7 @@ class _SplashStateState extends State<SplashState> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          new Text('Loading...'),
+          Center(child: Image.asset('assets/logo.png')),
         ],
       ),
     );

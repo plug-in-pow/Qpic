@@ -13,8 +13,7 @@ class CaptionPage extends StatefulWidget {
 
 class _CaptionPageState extends State<CaptionPage> {
   List data;
-  String message = "",
-      url = "https://quotes-api-flutter-app.herokuapp.com/quotes/";
+  String message = "", url = "Endpoint for api caption";
   bool isloading = true;
 
   Future getData() async {
@@ -24,8 +23,6 @@ class _CaptionPageState extends State<CaptionPage> {
         url += wordList[j] + ",";
       }
     }
-
-    print(url);
 
     url += "/500";
     try {

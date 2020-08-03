@@ -23,24 +23,20 @@ class _SearchQuotePageState extends State<SearchQuotePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: CardTiles(
-              tag: "Motivational",
-              relatedTags: ['Strength', 'Motive', 'Victory']),
+              tag: "Motivational", relatedTags: ['Strength', 'Victory']),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: CardTiles(
-              tag: "Inspirational",
-              relatedTags: ['Inspire', 'Passion', 'Believe']),
+              tag: "Inspirational", relatedTags: ['Inspire', 'Believe']),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child:
-              CardTiles(tag: "Life", relatedTags: ['Future', 'Mind', 'Family']),
+          child: CardTiles(tag: "Life", relatedTags: ['Mind', 'Family']),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: CardTiles(
-              tag: "Smile", relatedTags: ['Caring', 'Power', 'Sunshine']),
+          child: CardTiles(tag: "Smile", relatedTags: ['Caring', 'Sunshine']),
         )
       ],
     );
@@ -89,7 +85,7 @@ class _CardTilesState extends State<CardTiles> {
           ),
           SizedBox(height: 7),
           Text(
-            "${relatedTags[0]},${relatedTags[1]},${relatedTags[2]}",
+            "${relatedTags[1]},${relatedTags[2]}",
             style: TextStyle(color: Colors.grey[300], fontSize: 14),
           ),
           CardButton(

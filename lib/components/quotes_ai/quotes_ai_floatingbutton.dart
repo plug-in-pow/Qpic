@@ -13,7 +13,7 @@ class _QuotesAiFloatingButtonState extends State<QuotesAiFloatingButton> {
   Widget build(BuildContext context) {
     return Consumer<QuotesAiImageData>(builder: (context, data, _) {
       return FloatingActionButton.extended(
-        label: Text("Get Captions"),
+        label: Text("Get Quotes"),
         icon: Icon(Icons.arrow_forward_ios),
         backgroundColor: data.getRecognitions().length == 0
             ? Colors.grey

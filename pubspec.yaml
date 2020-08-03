@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.2+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -36,7 +36,6 @@ dependencies:
   image_picker: ^0.6.6+5
   permission_handler: ^5.0.0+hotfix.8
   tflite: ^1.0.6
-  flappy_search_bar: ^1.7.2
   http: ^0.12.1
   flutter_markdown: ^0.4.2
   package_info: ^0.4.1
@@ -78,18 +77,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Bree Serif
-      fonts:
-        - asset: fonts/BreeSerif-Regular.ttf
-    - family: MerriweatherSans
-      fonts:
-        - asset: fonts/MerriweatherSans-Regular.ttf
-        - asset: fonts/MerriweatherSans-Bold.ttf
-    - family: Roboto
-      fonts:
-        - asset: fonts/Roboto-Regular.ttf
-        - asset: fonts/Roboto-Medium.ttf
-        - asset: fonts/Roboto-Bold.ttf
     - family: AppFontFamily
       fonts:
         - asset: fonts/Lato-Regular.ttf

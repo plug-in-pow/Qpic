@@ -7,7 +7,7 @@ class AboutDilogePage extends StatefulWidget {
 }
 
 class _AboutDilogePageState extends State<AboutDilogePage> {
-  String appName = "QPic";
+  String appName = "Qpic";
   String version = "NA";
   void getAppInfo() async {
     try {

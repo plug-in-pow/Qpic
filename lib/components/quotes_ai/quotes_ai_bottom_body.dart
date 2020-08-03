@@ -71,7 +71,7 @@ class _QuotesAiBottomBodyState extends State<QuotesAiBottomBody> {
               });
         },
         icon: Icon(Icons.arrow_forward),
-        label: Text("Proceed"),
+        label: Text("Predict"),
       ),
     );
   }

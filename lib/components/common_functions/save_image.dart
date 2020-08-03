@@ -15,8 +15,8 @@ Future<bool> saveScreen(GlobalKey key, BuildContext context) async {
     ui.Image image = await boundary.toImage(pixelRatio: 3.0);
     ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     var png = byteData.buffer.asUint8List();
-    await Directory('/storage/emulated/0/FotoApp').create(recursive: true);
-    File('/storage/emulated/0/FotoApp/${_formattedDate()}.png')
+    await Directory('/storage/emulated/0/Qpic').create(recursive: true);
+    File('/storage/emulated/0/Qpic/${_formattedDate()}.png')
         .writeAsBytesSync(png.buffer.asInt8List());
 
     return true;
