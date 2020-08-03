@@ -35,7 +35,12 @@ For object detection we have used two types object detection model.
 <li>Yolo v2_tiny tflite model with 20 different classes.</li>
 </ol>
 
+For getting quotes I haved used web scrapping library in python and deployed a Flask Api application to get the quotes in the JSON format to the app.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## License
+[GPL-3.0](https://raw.githubusercontent.com/plug-in-pow/Qpic/master/LICENSE)
